@@ -1,0 +1,13 @@
+diff --git a/vscode/src/vs/workbench/browser/style.ts b/vscode/src/vs/workbench/browser/style.ts
+index 31d0aa03440..e1082b7375f 100644
+--- a/vscode/src/vs/workbench/browser/style.ts
++++ b/vscode/src/vs/workbench/browser/style.ts
+@@ -15,7 +15,7 @@
+ 
+ 	// Background (helps for subpixel-antialiasing on Windows)
+ 	const workbenchBackground = WORKBENCH_BACKGROUND(theme);
+-	collector.addRule(`.monaco-workbench { background-color: ${workbenchBackground}; }`);
++	collector.addRule(`.monaco-workbench { background-color: transparent !important; }`);
+ 
+ 	// Selection (do NOT remove - https://github.com/microsoft/vscode/issues/169662)
+ 	const windowSelectionBackground = theme.getColor(selectionBackground);

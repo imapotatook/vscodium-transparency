@@ -1,0 +1,50 @@
+diff --git a/vscode/build/builtin/main.js b/vscode/build/builtin/main.js
+index f4dbc6e8325..a9ecfcbe7f1 100644
+--- a/vscode/build/builtin/main.js
++++ b/vscode/build/builtin/main.js
+@@ -27,6 +27,7 @@ app.once('ready', () => {
+ 	window = new BrowserWindow({
+ 		width: 800,
+ 		height: 600,
++		transparent: true,
+ 		webPreferences: {
+ 			nodeIntegration: true,
+ 			contextIsolation: false,
+--- a/vscode/src/vs/platform/issue/electron-main/issueMainService.ts
++++ b/vscode/src/vs/platform/issue/electron-main/issueMainService.ts
+@@ -430,7 +430,8 @@
+ 			x: position.x,
+ 			y: position.y,
+ 			title: options.title,
+-			backgroundColor: options.backgroundColor || IssueMainService.DEFAULT_BACKGROUND_COLOR,
++			transparent: true,
++			backgroundColor: "#00000000" || IssueMainService.DEFAULT_BACKGROUND_COLOR,
+ 			webPreferences: {
+ 				preload: FileAccess.asFileUri('vs/base/parts/sandbox/electron-sandbox/preload.js').fsPath,
+ 				additionalArguments: [`--vscode-window-config=${ipcObjectUrl.resource.toString()}`],
+diff --git a/vscode/src/vs/platform/theme/electron-main/themeMainService.ts b/vscode/src/vs/platform/theme/electron-main/themeMainService.ts
+index caa1e0b6f45..0d20594b6c2 100644
+--- a/vscode/src/vs/platform/theme/electron-main/themeMainService.ts
++++ b/vscode/src/vs/platform/theme/electron-main/themeMainService.ts
+@@ -120,7 +120,7 @@ export class ThemeMainService extends Disposable implements IThemeMainService {
+ 	private updateBackgroundColor(windowId: number, splash: IPartsSplash): void {
+ 		for (const window of BrowserWindow.getAllWindows()) {
+ 			if (window.id === windowId) {
+-				window.setBackgroundColor(splash.colorInfo.background);
++				//window.setBackgroundColor(splash.colorInfo.background);
+ 				break;
+ 			}
+ 		}
+--- a/vscode/src/vs/platform/windows/electron-main/windowImpl.ts
++++ b/vscode/src/vs/platform/windows/electron-main/windowImpl.ts
+@@ -214,7 +214,8 @@
+ 				height: this.windowState.height,
+ 				x: this.windowState.x,
+ 				y: this.windowState.y,
+-				backgroundColor: this.themeMainService.getBackgroundColor(),
++				transparent: true,
++				backgroundColor: "#00000000",
+ 				minWidth: WindowMinimumSize.WIDTH,
+ 				minHeight: WindowMinimumSize.HEIGHT,
+ 				show: !isFullscreenOrMaximized, // reduce flicker by showing later
+
